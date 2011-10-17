@@ -19,8 +19,8 @@ $this->pageTitle = 'Send SiteMap';
             <div id="results_google">Not Send</div> 
         </td> 
         <td> 
-            <?php echo $form->create('Sitemap', array('action' => 'ping_google', 'type' => 'get', 'id' => 'ping_google') );?> 
-            <?php echo $form->end('Send');?> 
+            <?php echo $this->Form->create('Sitemap', array('action' => 'ping_google', 'type' => 'get', 'id' => 'ping_google') );?> 
+            <?php echo $this->Form->end('Send');?> 
         </td> 
     </tr> 
     <tr> 
@@ -31,8 +31,8 @@ $this->pageTitle = 'Send SiteMap';
             <div id="results_ask">Not Send</div> 
         </td> 
         <td> 
-            <?php echo $form->create('Sitemap', array('action' => 'ping_ask', 'type' => 'get', 'id' => 'ping_ask') );?> 
-            <?php echo $form->end('Send');?> 
+            <?php echo $this->Form->create('Sitemap', array('action' => 'ping_ask', 'type' => 'get', 'id' => 'ping_ask') );?> 
+            <?php echo $this->Form->end('Send');?> 
         </td> 
     </tr> 
     <!--tr> 
@@ -43,8 +43,8 @@ $this->pageTitle = 'Send SiteMap';
             <div id="results_yahoo">Not Send</div> 
         </td> 
         <td> 
-            <?php echo $form->create('Sitemap', array('action' => 'ping_yahoo', 'type' => 'get', 'id' => 'ping_yahoo') );?> 
-            <?php echo $form->end('Send');?> 
+            <?php echo $this->Form->create('Sitemap', array('action' => 'ping_yahoo', 'type' => 'get', 'id' => 'ping_yahoo') );?> 
+            <?php echo $this->Form->end('Send');?> 
         </td> 
     </tr--> 
     <tr> 
@@ -55,8 +55,8 @@ $this->pageTitle = 'Send SiteMap';
             <div id="results_bing">Not Send</div> 
         </td> 
         <td> 
-            <?php echo $form->create('Sitemap', array('action' => 'ping_bing', 'type' => 'get', 'id' => 'ping_bing') );?> 
-            <?php echo $form->end('Send');?> 
+            <?php echo $this->Form->create('Sitemap', array('action' => 'ping_bing', 'type' => 'get', 'id' => 'ping_bing') );?> 
+            <?php echo $this->Form->end('Send');?> 
         </td> 
     </tr> 
 </table> 
