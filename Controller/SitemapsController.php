@@ -10,7 +10,7 @@
  * @copyright     Copyright 2008-2009, Cristian Deluxe (http://www.cristiandeluxe.com) 
  * @link          http://bakery.cakephp.org/articles/view/sitemap-deluxe 
  */  
-class SitemapsController extends AppController{ 
+class SitemapsController extends AppController { 
 
     var $name = 'Sitemaps'; 
     var $helpers = array('Time', 'Xml', 'Javascript'); 
