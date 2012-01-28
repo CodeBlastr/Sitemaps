@@ -12,20 +12,19 @@
  */  
 class SitemapsController extends AppController { 
 
-    var $name = 'Sitemaps'; 
-    var $helpers = array('Time', 'Xml', 'Javascript'); 
-    var $components = array('RequestHandler'); 
-    var $uses = array(); 
-    var $array_dynamic = array(); 
-    var $array_static = array(); 
-    var $sitemap_url = '/sitemap.xml'; 
-    var $yahoo_key = 'insert your yahoo api key here'; 
-	var $allowedActions =  array('index', 'send_sitemap');
+    public $name = 'Sitemaps'; 
+    public $components = array('RequestHandler'); 
+    public $uses = array(); 
+    public $array_dynamic = array(); 
+    public $array_static = array(); 
+    public $sitemap_url = '/sitemap.xml'; 
+    public $yahoo_key = 'insert your yahoo api key here'; 
+	public $allowedActions =  array('index', 'send_sitemap');
 
-    /*  
-     * Our sitemap  
-     */ 
-    function index(){
+/**
+ * Index method  
+ */ 
+    public function index(){
         $this->__get_data(); 
         $this->set('dynamics', $this->array_dynamic); 
         $this->set('statics', $this->array_static); 
@@ -36,17 +35,17 @@ class SitemapsController extends AppController {
         }
     } 
      
-    /*  
-     * Action for send sitemaps to search engines 
-     */ 
-    function send_sitemap() { 
+/**
+ * Action for send sitemaps to search engines 
+ */ 
+    public function send_sitemap() { 
         // This action must be only for admins 
     } 
      
-    /*  
-     * This make a simple robot.txt file use it if you don't have your own 
-     */ 
-    function robot() { 
+/**
+ * This make a simple robot.txt file use it if you don't have your own 
+ */ 
+    public function robot() { 
         $expire = 25920000; 
         header('Date: ' . date("D, j M Y G:i:s ", time()) . ' GMT'); 
         header('Expires: ' . gmdate("D, d M Y H:i:s", time() + $expire) . ' GMT'); 
@@ -57,10 +56,10 @@ class SitemapsController extends AppController {
         exit(); 
     } 
 
-    /*  
-     * Here must be all our public controllers and actions 
-     */ 
-    function __get_data() { 
+/**
+ * Here must be all our public controllers and actions 
+ */ 
+    public function __get_data() { 
 		
 		$Aco = ClassRegistry::init('Aro');
 		$guestAro = $Aco->find('first', array('conditions' => array('model' => 'UserRole', 'foreign_key' => __SYSTEM_GUESTS_USER_ROLE_ID)));
@@ -108,10 +107,10 @@ class SitemapsController extends AppController {
     } 
      
 	 
-    /*  
-     * Add a "static" section 
-     */ 
-    function __add_static_section($title = null, $url = null, $options = null) { 
+/**
+ * Add a "static" section 
+ */ 
+    public function __add_static_section($title = null, $url = null, $options = null) { 
         if(is_null($title) || empty($title) || is_null($url) || empty($url) ) { 
             return false; 
         } 
@@ -128,10 +127,10 @@ class SitemapsController extends AppController {
     } 
      
      
-    /*  
-     * Add a section based on data from our database 
-     */ 
-    function __add_dynamic_section($model = null, $data = null, $options = null){ 
+/**
+ * Add a section based on data from our database 
+ */ 
+    public function __add_dynamic_section($model = null, $data = null, $options = null){ 
         if(is_null($model) || empty($model) || is_null($data) || empty($data) ) { 
             return false; 
         }
@@ -181,10 +180,10 @@ class SitemapsController extends AppController {
 	
 	
      
-    /*  
-     * This make a GET petition to search engine url 
-     */     
-    function __ping_site($url = null, $params = null) { 
+/**
+ * This make a GET petition to search engine url 
+ */     
+    public function __ping_site($url = null, $params = null) { 
         if(is_null($url) || empty($url) || is_null($params) || empty($params) ) { 
             return false;     
         } 
@@ -194,30 +193,30 @@ class SitemapsController extends AppController {
         return $HttpSocket->response; 
     } 
      
-    /*  
-     * Show response for ajax based on a boolean result 
-     */     
-    function __ajaxresponse($result = false){ 
+/**
+ * Show response for ajax based on a boolean result 
+ */     
+    public function __ajaxresponse($result = false){ 
         if(!$result) { 
             return 'fail'; 
         } 
         return 'success'; 
     } 
      
-    /*  
-     * Function for ping Google 
-     */     
-    function ping_google() { 
+/**
+ * Function for ping Google 
+ */     
+    public function ping_google() { 
         $url = 'http://www.google.com/webmasters/tools/ping'; 
         $params = 'sitemap=' . urlencode(FULL_BASE_URL . $this->sitemap_url); 
         echo $this->__ajaxresponse($this->__check_ok_google( $this->__ping_site($url, $params) ));         
         exit(); 
     } 
      
-    /*  
-     * Function for check Google's response 
-     */     
-    function __check_ok_google($response = null){ 
+/**
+ * Function for check Google's response 
+ */     
+    public function __check_ok_google($response = null){ 
         if( is_null($response) || !is_array($response) || empty($response) ) { 
             return false; 
         } 
@@ -231,20 +230,20 @@ class SitemapsController extends AppController {
         return false; 
     } 
      
-    /*  
-     * Function for ping Ask.com 
-     */     
-    function ping_ask() { // fail if we are in local environment 
+/**
+ * Function for ping Ask.com 
+ */     
+    public function ping_ask() { // fail if we are in local environment 
         $url = 'http://submissions.ask.com/ping'; 
         $params = 'sitemap=' .  urlencode(FULL_BASE_URL . $this->sitemap_url); 
         echo $this->__ajaxresponse($this->__check_ok_ask( $this->__ping_site($url, $params) )); 
         exit(); 
     } 
      
-    /*  
-     * Function for check Ask's response 
-     */     
-    function __check_ok_ask($response = null){ 
+/**
+ * Function for check Ask's response 
+ */     
+    public function __check_ok_ask($response = null){ 
         if( is_null($response) || !is_array($response) || empty($response) ) { 
             return false; 
         } 
@@ -258,20 +257,20 @@ class SitemapsController extends AppController {
         return false; 
     } 
      
-    /*  
-     * Function for ping Yahoo 
-     */     
-    function ping_yahoo() {
+/**
+ * Function for ping Yahoo 
+ */     
+    public function ping_yahoo() {
         $url = 'http://search.yahooapis.com/SiteExplorerService/V1/updateNotification'; 
         $params = 'appid='.$this->yahoo_key.'&url=' . urlencode(FULL_BASE_URL . $this->sitemap_url); 
         echo $this->__ajaxresponse($this->__check_ok_yahoo( $this->__ping_site($url, $params) )); 
         exit(); 
     } 
      
-    /*  
-     * Function for check Yahoo's response 
-     */     
-    function __check_ok_yahoo($response = null){ 
+/**
+ * Function for check Yahoo's response 
+ */     
+    public function __check_ok_yahoo($response = null){ 
         if( is_null($response) || !is_array($response) || empty($response) ) { 
             return false; 
         } 
@@ -285,20 +284,20 @@ class SitemapsController extends AppController {
         return false; 
     } 
      
-    /*  
-     * Function for ping Bing 
-     */     
-    function ping_bing() {
+/**
+ * Function for ping Bing 
+ */     
+    public function ping_bing() {
         $url = 'http://www.bing.com/webmaster/ping.aspx'; 
         $params = '&siteMap=' . urlencode(FULL_BASE_URL . $this->sitemap_url); 
         echo $this->__ajaxresponse($this->__check_ok_bing( $this->__ping_site($url, $params) )); 
         exit(); 
     } 
      
-    /*  
-     * Function for check Bing's response 
-     */     
-    function __check_ok_bing($response = null){ 
+/**
+ * Function for check Bing's response 
+ */     
+    public function __check_ok_bing($response = null){ 
         if( is_null($response) || !is_array($response) || empty($response) ) { 
             return false; 
         } 

@@ -134,3 +134,13 @@ $this->pageTitle = 'Send SiteMap';
     }     
 //]]> 
 </script>
+<?php 
+// set the contextual menu items
+$this->set('context_menu', array('menus' => array(
+	array(
+		'heading' => 'Sitemaps',
+		'items' => array(
+			$this->Html->link(__('List', true), array('plugin' => 'sitemaps', 'controller' => 'sitemaps', 'action' => 'index'), array('class' => 'index')),
+			)
+		),
+	))); ?>
